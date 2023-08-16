@@ -4,8 +4,10 @@
 
 int main(){
     int rows, columns;
-    printf("Enter rows and columns : ");
+    printf("Enter rows and columns (rxc): ");
     scanf("%dx%d", &rows, &columns);
+
+    int count0=0, countNon0=0;
 
     int array[rows][columns];
 
@@ -15,20 +17,32 @@ int main(){
         {
             printf("Enter value = ");
             scanf("%d", &array[i][j]);
-        }
-        
-    }
-    printf("\n\n");
-    for (int i = 0; i < rows; i++)
-    {
-        for (int j = 0; j < columns; j++)
-        {
-            if(array[i][j]!=0){
-                printf("(%d\t%d\t%d)\n", i, j, array[i][j]);
+
+            if(array[i][j]==0){
+                count0++;
+            }
+            else{
+                countNon0++;
             }
         }
-        
+
     }
-    
+    printf("\n\n");
+    if(count0<countNon0){
+        printf("Not a sparse matrix.");
+    }
+    else{
+        printf("i\tj\tValue\n\n");
+        for (int i = 0; i < rows; i++)
+        {
+            for (int j = 0; j < columns; j++)
+            {
+                if(array[i][j]!=0){
+                    printf("(%d\t%d\t%d)\n", i, j, array[i][j]);
+                }
+            }
+            
+        }
+    }
     return 0;
 }
