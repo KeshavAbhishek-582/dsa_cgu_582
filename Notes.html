@@ -1,0 +1,184 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Edu+NSW+ACT+Foundation:wght@700&display=swap" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/477be79e6e.js" crossorigin="anonymous"></script>
+    <link rel="shortcut icon" href="./dsa.ico" type="image/x-icon">
+    <title>DSA LAB PDF</title>
+    <style>
+        *{
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+        }
+        body{
+            display: flex;
+            align-items: center;
+            justify-content: space-evenly;
+            flex-direction: row;
+        }
+
+        body::-webkit-scrollbar{
+            background-color: transparent;
+            border-radius: 20px;
+            width: 10px;
+        }
+
+        body::-webkit-scrollbar-thumb{
+            background-color: red;
+            border-radius: 20px;
+        }
+
+        .nonHref{
+            text-align: center;
+            font-weight: bolder;
+            font-size: 1.5rem;
+            font-family: 'Edu NSW ACT Foundation', cursive;
+            border: 5px solid red;
+            padding: 10px;
+            margin: 20px 0;
+            border-radius: 15px;
+            background: pink;
+            /* width: 80vw; */
+            color: #000;
+            transition: all 0.5s ease-in-out;
+            position: relative;
+            z-index: 0;
+            width: 25vw;
+            cursor: pointer;
+        }
+
+        iframe{
+            width: 65%;
+            height: 90vh;
+            border-radius: 10px;
+            /* transition: all 0.5s ease-in-out; */
+            border: none;
+        }
+
+        h1{
+            padding: 10px 0;
+        }
+
+        .heading{
+            padding: 10px 0;
+            /* width: 95%; */
+            text-align: center;
+            font-weight: bolder;
+            font-size: 5.5em;
+            text-decoration: underline;
+            color: red;
+        }
+
+        i{
+            font-size: 5em;
+            margin-top: 10px;
+        }
+
+        @media only screen and (max-width:700px){
+            .nonHref{
+                width: 80vw;
+            }
+
+            .heading{
+                font-size: 3rem;
+                text-align: center;
+            }
+
+            iframe{
+                display: none;
+            }
+
+            #indexFile{
+                min-width: 100%;
+                display: flex;
+                align-items: center;
+                flex-direction: column;
+                min-height: 100vh;
+                padding-right: 0px !important;
+            }
+
+            #indexFile::-webkit-scrollbar{
+                display: none;
+            }
+        }
+
+        #indexFile{
+            height: 100vh;
+            width: min-content;
+            overflow: scroll;
+            padding-right: 20px;
+            overflow-x: hidden;
+        }
+
+        #indexFile::-webkit-scrollbar{
+            background-color: pink;
+            border-radius: 20px;
+            width: 10px;
+        }
+
+        #indexFile::-webkit-scrollbar-thumb{
+            background-color: red;
+            border-radius: 20px;
+        }
+
+    </style>
+</head>
+<body>
+    <div id="indexFile">
+
+        <div class="heading">DSA LAB</div>
+        <div class="nonHref">
+            <i class="fa-regular fa-file-lines"></i><h1>Experiment 1</h1>
+        </div>
+
+    </div>
+    <iframe src="" frameborder="0" id="showFile"></iframe>
+    <a href="" download="file.pdf" id="link"></a>
+
+    <script defer>
+        var screen = document.getElementById("showFile");
+
+        var files = Array("Assignment-1.pdf");
+
+        var fileLocation = Array("./LAB_ASSIGNMENT/Assignment-1.pdf");
+
+        // for (const iterator of files) {
+        //     screen.src=`./Assignment C Pdf Text/${iterator}`;
+        // }
+
+        var data = document.getElementsByClassName("nonHref");
+
+        var pos = 0;
+        
+        for (let index = 0; index < data.length; index++) {
+            const element = data[index];
+            element.addEventListener("click", (e)=>{
+                if(document.getElementsByTagName('html')[0].clientWidth>700){
+
+                    screen.src=`./LAB_ASSIGNMENT/${files[index]}#toolbar=0`;
+                    element.style.filter="invert(1)";
+                    pos = index;
+                    for (let i = 0; i < data.length; i++) {
+                        const ele = data[i];
+                        if(i!=pos){
+                            ele.style.filter="invert(0)";
+                        }
+                    }
+                }
+                else{
+                    document.getElementById("link").href=`${fileLocation[index]}`;
+                    document.getElementById("link").download=`${fileLocation[index].split('/')[2]}`;
+                    document.getElementById("link").click();
+                }
+            });
+        }
+    </script>
+</body>
+</html>

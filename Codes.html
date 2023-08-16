@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DSA LAB | CODES</title>
+    <script src="https://kit.fontawesome.com/477be79e6e.js" crossorigin="anonymous"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Merriweather&display=swap');
+
+        * {
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            width: 100%;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            /* padding: 10px 0; */
+            flex-direction: column;
+            position: relative;
+        }
+
+        #popup {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            font-family: 'Merriweather', serif;
+            font-weight: bolder;
+            font-size: 2rem;
+            color: white;
+            background: green;
+            padding: 10px 20px;
+            border-radius: 10px;
+
+            box-shadow: rgb(38, 57, 77) 0px 20px 30px -10px;
+
+            opacity: 0;
+        }
+
+        h1 {
+            margin: 20px 0;
+            font-size: 2rem !important;
+        }
+
+        div {
+            width: 80%;
+            position: relative;
+        }
+
+        #copy {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            font-size: 2rem;
+            cursor: pointer;
+            padding: 15px;
+            color: #000;
+            background: white;
+            border-radius: 50%;
+        }
+
+        #copy:hover {
+            filter: invert(1);
+        }
+
+        textarea {
+            width: 100%;
+            height: 50vh;
+            padding: 20px 10px;
+            font-size: 1.5rem;
+            font-family: 'Merriweather', serif;
+            resize: vertical;
+            font-weight: bolder;
+        }
+
+        textarea:disabled {
+            color: #000;
+            background: white;
+        }
+
+        textarea::-webkit-scrollbar {
+            display: none;
+        }
+
+        #cut{
+            margin-left: 15px;
+            cursor: pointer;
+        }
+
+        @keyframes showup {
+            0%{
+                opacity: 0;
+            }
+            100%{
+                opacity: 1;
+            }
+        }
+        
+        .show{
+            animation: showup 0.5s ease 1 forwards;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Q1</h1>
+    <div>
+        <textarea class="codeScreen" disabled></textarea>
+        <i class="fa-regular fa-copy" id="copy" onclick="showup()"></i>
+    </div>
+    <h1>Q2</h1>
+    <div>
+        <textarea class="codeScreen" disabled></textarea>
+        <i class="fa-regular fa-copy" id="copy" onclick="showup()"></i>
+    </div>
+    <h1>Q3</h1>
+    <div>
+        <textarea class="codeScreen" disabled></textarea>
+        <i class="fa-regular fa-copy" id="copy" onclick="showup()"></i>
+    </div>
+    <h1>Q4</h1>
+    <div>
+        <textarea class="codeScreen" disabled></textarea>
+        <i class="fa-regular fa-copy" id="copy" onclick="showup()"></i>
+    </div>
+    <span id="popup">Code Copied !<i class="fa-solid fa-xmark" id="cut" onclick="hideup()"></i></span>
+    <script defer>
+        document.getElementsByClassName("codeScreen")[0].value = `#include <stdio.h>
+#include <math.h>
+
+int main(){
+    int n; // Number of elements
+    int xi; // current element
+    float x = 0.0; // Mean
+    float variance; // Variance
+    float sd; // Standard Deviation
+    float sum = 0.0; // Temp Variable
+
+    printf("Number of elements to be entered : ");
+    scanf("%d", &n);
+    
+    int arr1[n];
+
+    for (int i = 0; i < n; i++)
+    {
+        printf("Enter number : ");
+        scanf("%d", &arr1[i]);
+        
+        xi = arr1[i];
+        x = x+xi;
+    }
+    
+    x = x/n; // Mean Calculated
+
+    for (int i = 0; i < n; i++)
+    {
+        xi = arr1[i];
+        sum += pow(xi-x,2);
+    }
+
+    variance = sum/(n-1); // Variance Calculated
+    sd = pow(variance, 0.5); // Standard Deviation Calculated
+
+    printf("\nMean = %f\nVariance = %f\nStandard Deviation = %f", x, variance, sd);
+    
+    return 0;
+}`;
+
+    document.getElementsByClassName("codeScreen")[1].value = `#include <stdio.h>
+
+int main(){
+    int temp;
+    int n;
+
+    printf("Enter number of elements you want to insert : ");
+    scanf("%d", &n);
+
+    int array[n]; // Declaration of array
+
+    for (int i = 0; i < n; i++)
+    {
+        printf("Enter data : ");
+        scanf("%d", &array[i]); // Insertion of data in array
+    }
+
+    for (int i = 0; i < n; i++)
+    {
+        for (int j = 0; j < n-i; j++)
+        {
+            temp = array[j+1];
+
+            if(array[j]>array[j+1]){
+                array[j+1]=array[j];
+                array[j]=temp;
+            }
+        }
+        
+    }
+
+    if(n%2==0){
+        printf("Median : %d", (array[(n/2)-1]+array[(n/2)])/2);
+    }
+    else{
+        printf("Median : %d", array[n/2]);
+    }
+    return 0;
+}`;
+
+    document.getElementsByClassName("codeScreen")[2].value = `#include <stdio.h>
+
+int main(){
+    int temperature_data[]={25,28,27,30,31,29,26};
+    float avg;
+    int high = temperature_data[0];
+    int low = temperature_data[0];
+
+    for (int i = 0; i < sizeof(temperature_data)/sizeof(int); i++)
+    {
+        avg+=temperature_data[i];
+        if(high<temperature_data[i]){
+            high=temperature_data[i];
+        }
+
+        if(low>temperature_data[i]){
+            low=temperature_data[i];
+        }
+    }
+
+    printf("\nA. Average Temperature : %f\nB. Hottest : %d\t\tColdest : %d\nC. Temperature Difference : %d\n", avg/(sizeof(temperature_data)/sizeof(int)), high, low, high-low);
+    
+    return 0;
+}`;
+
+    document.getElementsByClassName("codeScreen")[3].value = `#include <stdio.h>
+
+int main(){
+    int temperature_data[]={25,28,27,30,31,29,26};
+    float avg;
+    int high = temperature_data[0];
+    int low = temperature_data[0];
+
+    for (int i = 0; i < sizeof(temperature_data)/sizeof(int); i++)
+    {
+        avg+=temperature_data[i];
+        if(high<temperature_data[i]){
+            high=temperature_data[i];
+        }
+
+        if(low>temperature_data[i]){
+            low=temperature_data[i];
+        }
+    }
+
+    printf("\nA. Average Temperature : %f\nB. Hottest : %d\t\tColdest : %d\nC. Temperature Difference : %d\n", avg/(sizeof(temperature_data)/sizeof(int)), high, low, high-low);
+    
+    return 0;
+}`;
+
+    function showup(){
+        document.getElementById("popup").classList.toggle("show");
+    }
+
+    function hideup(){
+        document.getElementById("popup").style.opacity="0";
+    }
+    </script>
+</body>
+
+</html>
