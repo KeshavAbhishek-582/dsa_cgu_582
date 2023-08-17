@@ -1,48 +1,56 @@
-/*
-Write a function that takes a 2-dimensional array of size N x M as input and returns a new array containing the transpose of the original matrix.
-*/
-
-#include <stdio.h>
-
-int main(){
-    int n;
-    int temp;
-    printf("Transpose of the elements of 2D array (nxn):\n\n");
-    printf("Enter value of n : ");
-    scanf("%d", &n);
-    int array[n][n];
-    for (int i = 0; i < n; i++)
+#include<stdio.h>
+void transpose()
+{
+    int i,j,x,y;
+    printf("Enter row: ");
+    scanf("%d",&x);
+    
+    printf("Enter column: ");
+    scanf("%d",&y);
+    
+    int array1[x][y]; // Main Matrix
+    int array2[y][x]; // New Matrix
+    
+    for(i=0;i<x;i++)
     {
-        for (int j = 0; j < n; j++)
+        for(j=0;j<y;j++)
         {
-            printf("Enter element at position %d,%d  ",i,j);
-            scanf("%d",&array[i][j]);
+            printf("Enter value = ");
+            scanf("%d",&array1[i][j]);
         }
-        
     }
-    
-
-    for (int i = 0; i < n; i++)
+    printf("\nOriginal Matrix : \n\n");
+    for(i=0;i<x;i++)
     {
-        for (int j = i+1; j < n; j++)
-        {   
-            temp=array[i][j];
-            array[i][j]=array[j][i];
-            array[j][i]=temp;
-        }  
-    }
-    
-    printf("\n\n");
-
-    for (int i = 0; i < n; i++)
-    {
-        for (int j = 0; j < n; j++)
+        for(j=0;j<y;j++)
         {
-            printf("%d ", array[i][j]);
+            printf("%d ", array1[i][j]); // Printing Original Matrix
         }
         printf("\n");
-        
     }
     
+    printf("\n\n"); // For Vertical Spacing
+    
+    for(i=0;i<x;i++)
+    {
+        for(j=0;j<y;j++)
+        {
+            array2[j][i]=array1[i][j];
+        }
+    }
+    printf("Transposed Matrix : \n");
+    for(i=0;i<y;i++)
+    {
+        for(j=0;j<x;j++)
+        {
+            printf("%d ", array2[i][j]); // Printing Transposed Matrix
+        }
+        printf("\n");
+    }
+}
+
+int main()
+{
+    transpose(); // User defined function.
     return 0;
 }
