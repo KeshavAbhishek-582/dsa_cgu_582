@@ -9,7 +9,6 @@ int main(){
         {
             printf("At index %d %d value is : %d\n", i, j, array[i][j]);
         }
-        
     }
     
     return 0;
