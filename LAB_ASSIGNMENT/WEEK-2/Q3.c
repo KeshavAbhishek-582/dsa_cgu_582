@@ -4,7 +4,7 @@
 
 int main(){
     int rows, columns;
-    char labels[3][100]={"Rows    :   ", "Columns :   ", "Value   :   "};
+    char labels[3][100]={"Rows\t:   ", "Columns :   ", "Value   :   "};
     printf("Enter rows and columns (rxc): ");
     scanf("%dx%d", &rows, &columns);
 
@@ -31,7 +31,7 @@ int main(){
     int sparse[3][countNon0];
     int iterator=0;
     printf("\n\n");
-    if(count0>=(rows*columns)/100){
+    if(count0>=(rows*columns)/2){
         for (int i = 0; i < rows; i++)
         {
             for (int j = 0; j < columns; j++)
