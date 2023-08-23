@@ -60,5 +60,6 @@ int main(){
     else{
         printf("Not a sparse matrix.");
     }
+    
     return 0;
 }
