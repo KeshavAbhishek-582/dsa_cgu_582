@@ -14,7 +14,7 @@ int isEmpty() {
 
 // Function to check if the circular queue is full
 int isFull() {
-    return (front == 0 && rear == MAX_SIZE - 1) || (rear == (front - 1) % (MAX_SIZE - 1));
+    return (front==(rear+1)%MAX_SIZE);
 }
 
 // Function to insert an element into the circular queue
