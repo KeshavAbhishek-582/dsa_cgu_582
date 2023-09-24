@@ -20,8 +20,8 @@ void showLinkList(struct Node *ptr)
         printf("\nDouble-Link List contains : \nNULL <-> ");
         while (ptr != NULL)
         {
-            printf("%p %p %p || ", ptr->prev, ptr, ptr->next);
-            // printf("%d ", ptr->data);
+            // printf("%p %p %p || ", ptr->prev, ptr, ptr->next);
+            printf("%d ", ptr->data);
             ptr = ptr->next;
         }
         printf(" <-> NULL");
@@ -54,11 +54,6 @@ struct Node * insertAtBeginning(struct Node * head){
 struct Node * insertAtSpecificPosition(struct Node * head){
     struct Node * new;
     new = (struct Node *)malloc(sizeof(struct Node));
-    
-    new->prev=NULL;
-    printf("Enter Data : ");
-    scanf("%d", &new->data);
-    new->next=NULL;
 
     int i=0 , pos=0;
     struct Node * temp_temp = head;
@@ -68,8 +63,6 @@ struct Node * insertAtSpecificPosition(struct Node * head){
         i++;
     }
 
-    printf("\nEnter Position (1-%d) : ", i);scanf("%d", &pos);
-
     if(head==NULL || pos==1){
         return insertAtBeginning(head);
     }
@@ -78,10 +71,17 @@ struct Node * insertAtSpecificPosition(struct Node * head){
         return insertAtEnd(head);
     }
 
+    new->prev=NULL;
+    printf("\nEnter Data : ");
+    scanf("%d", &new->data);
+    new->next=NULL;
+
+    printf("Enter Position (1-%d) : ", i);scanf("%d", &pos);
+
     struct Node * temp = head;
 
     i=0;
-    while(i!=pos-2){
+    while(i!=pos-1){
         temp=temp->next;
         i++;
     }
@@ -89,7 +89,7 @@ struct Node * insertAtSpecificPosition(struct Node * head){
     new->next=temp->next;
     temp->next=new;
     new->prev=temp;
-    
+
     return head;
 }
 
@@ -121,12 +121,10 @@ int main(){
     struct Node * head=NULL;
 
     head=insertAtBeginning(head);
-    head=insertAtBeginning(head);
-    head=insertAtBeginning(head);
-    head=insertAtBeginning(head);
-    
     head=insertAtEnd(head);
 
+
+    head = insertAtSpecificPosition(head);
     head = insertAtSpecificPosition(head);
 
     showLinkList(head);
