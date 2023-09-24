@@ -1,104 +1,135 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-// Define a structure for a doubly linked list node
-struct Node
-{
-    struct Node *prev;
+struct Node{
+    struct Node * prev;
     int data;
-    struct Node *next;
+    struct Node * next;
 };
 
-// Function to create a new node
-struct Node *createNode(int data)
-{
-    struct Node *newNode = (struct Node *)malloc(sizeof(struct Node));
-    newNode->data = data;
-    newNode->prev = NULL;
-    newNode->next = NULL;
-    return newNode;
-}
+struct Node * insertAtBeginning(struct Node * head);
+struct Node * insertAtEnd(struct Node * head);
 
-// Function to insert a new node at the beginning of the list
-void insertAtBeginning(struct Node **head, int data)
+void showLinkList(struct Node *ptr)
 {
-    struct Node *newNode = createNode(data);
-    if (*head == NULL)
+    if (ptr == NULL)
     {
-        *head = newNode;
+        printf("\n\nLinked list is Empty.");
     }
-    else
-    {
-        newNode->next = *head;
-        (*head)->prev = newNode;
-        *head = newNode;
+    else{
+        printf("\nDouble-Link List contains : \nNULL <-> ");
+        while (ptr != NULL)
+        {
+            printf("%p %p %p || ", ptr->prev, ptr, ptr->next);
+            // printf("%d ", ptr->data);
+            ptr = ptr->next;
+        }
+        printf(" <-> NULL");
     }
 }
 
-// Function to insert a new node at a specific position
-void insertAtPosition(struct Node **head, int data, int position)
-{
-    struct Node *newNode = createNode(data);
-    if (position < 1)
-    {
-        printf("Invalid position!\n");
-        return;
-    }
-    if (position == 1)
-    {
-        insertAtBeginning(head, data);
-        return;
-    }
+struct Node * insertAtBeginning(struct Node * head){
+    struct Node * new;
+    new = (struct Node *)malloc(sizeof(struct Node));
+    
+    new->prev=NULL;
+    printf("Enter Data : ");
+    scanf("%d", &new->data);
+    new->next=NULL;
 
-    struct Node *current = *head;
-    int currentPosition = 1;
-
-    // while (current->next!=NULL)
-    // {
-    //     current = current->next;
-    //     currentPosition++;
-    // }
-
-    if (current == NULL)
-    {
-        printf("Invalid position!\n");
-        return;
+    if(head==NULL){
+        head=new;
+        head->next=NULL;
+        return head;
     }
-
-    newNode->prev = current;
-    newNode->next = current->next;
-    if (current->next != NULL)
-    {
-        current->next->prev = newNode;
+    else{
+        struct Node * temp = head;
+        head=new;
+        new->next=temp;
+        temp->prev=new;
+        return head;
     }
-    current->next = newNode;
 }
 
-// Function to display the doubly linked list
-void displayList(struct Node *head)
-{
-    struct Node *current = head;
-    printf("\nNULL<-->");
-    while (current != NULL)
-    {
-        printf("%d<-->", current->data);
-        current = current->next;
+struct Node * insertAtSpecificPosition(struct Node * head){
+    struct Node * new;
+    new = (struct Node *)malloc(sizeof(struct Node));
+    
+    new->prev=NULL;
+    printf("Enter Data : ");
+    scanf("%d", &new->data);
+    new->next=NULL;
+
+    int i=0 , pos=0;
+    struct Node * temp_temp = head;
+
+    while(temp_temp!=NULL){
+        temp_temp=temp_temp->next;
+        i++;
     }
-    printf("NULL\n");
+
+    printf("\nEnter Position (1-%d) : ", i);scanf("%d", &pos);
+
+    if(head==NULL || pos==1){
+        return insertAtBeginning(head);
+    }
+
+    if(pos==i){
+        return insertAtEnd(head);
+    }
+
+    struct Node * temp = head;
+
+    i=0;
+    while(i!=pos-2){
+        temp=temp->next;
+        i++;
+    }
+
+    new->next=temp->next;
+    temp->next=new;
+    new->prev=temp;
+    
+    return head;
 }
 
-int main()
-{
-    struct Node *head = NULL;
+struct Node * insertAtEnd(struct Node * head){
+    if(head==NULL){
+        return insertAtBeginning(head);
+    }
+    struct Node * new;
+    new = (struct Node *)malloc(sizeof(struct Node));
+    
+    new->prev=NULL;
+    printf("Enter Data : ");
+    scanf("%d", &new->data);
+    new->next=NULL;
 
-    insertAtBeginning(&head, 10);
-    insertAtPosition(&head, 20, 2);
-    insertAtPosition(&head, 30, 3);
-    insertAtPosition(&head, 40, 4);
-    insertAtPosition(&head, 50, 3);
+    struct Node * temp = head;
 
-    printf("Doubly Linked List after insertions: ");
-    displayList(head);
+    while(temp->next!=NULL){
+        temp=temp->next;
+    }
+
+    temp->next=new;
+    new->prev=temp;
+
+    return head;
+}
+
+int main(){
+    struct Node * head=NULL;
+
+    head=insertAtBeginning(head);
+    head=insertAtBeginning(head);
+    head=insertAtBeginning(head);
+    head=insertAtBeginning(head);
+    
+    head=insertAtEnd(head);
+
+    head = insertAtSpecificPosition(head);
+
+    showLinkList(head);
 
     return 0;
 }
