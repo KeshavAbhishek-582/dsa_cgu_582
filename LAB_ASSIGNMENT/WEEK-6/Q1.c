@@ -17,14 +17,13 @@ void showLinkList(struct Node *ptr)
         printf("\n\nLinked list is Empty.");
     }
     else{
-        printf("\nDouble-Link List contains : \nNULL <-> ");
+        printf("\nDouble-Link List contains : \nNULL");
         while (ptr != NULL)
         {
-            // printf("%p %p %p || ", ptr->prev, ptr, ptr->next);
-            printf("%d ", ptr->data);
+            printf("<->%d", ptr->data);
             ptr = ptr->next;
         }
-        printf(" <-> NULL");
+        printf("<->NULL");
     }
 }
 
@@ -122,7 +121,6 @@ int main(){
 
     head=insertAtBeginning(head);
     head=insertAtEnd(head);
-
 
     head = insertAtSpecificPosition(head);
     head = insertAtSpecificPosition(head);
