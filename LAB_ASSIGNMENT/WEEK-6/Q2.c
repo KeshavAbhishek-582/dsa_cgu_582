@@ -37,20 +37,20 @@ struct Node *insertAtEnd(struct Node *head)
 
 void showLinkList(struct Node *ptr)
 {
-    if (ptr == NULL)
+    // if (ptr == NULL)
+    // {
+    //     printf("\n\nLinked list is Empty.");
+    // }
+    // else
+    // {
+    printf("\nDouble-Link List contains : \nNULL");
+    while (ptr != NULL)
     {
-        printf("\n\nLinked list is Empty.");
+        printf("<->%d", ptr->data);
+        ptr = ptr->next;
     }
-    else
-    {
-        printf("\nDouble-Link List contains : \nNULL");
-        while (ptr != NULL)
-        {
-            printf("<->%d", ptr->data);
-            ptr = ptr->next;
-        }
-        printf("<->NULL");
-    }
+    printf("<->NULL\n");
+    // }
 }
 
 struct Node *delete(struct Node *head)
@@ -97,10 +97,12 @@ int main()
 {
     struct Node *head = NULL;
 
-    for (int i = 0; i < 6; i++)
+    for (int i = 0; i < 5; i++)
     {
         head = insertAtEnd(head);
     }
+
+    showLinkList(head);
 
     head = delete(head);
     showLinkList(head);

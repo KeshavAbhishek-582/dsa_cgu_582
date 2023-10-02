@@ -1,80 +1,76 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-// Define a structure for a node in the doubly linked list
-struct Node {
+struct Node{
     int data;
-    struct Node* next;
-    struct Node* prev;
+    struct Node *next;
+    struct Node *prev;
 };
 
-// Function to create a new node
-struct Node* createNode(int data) {
-    struct Node* newNode = (struct Node*)malloc(sizeof(struct Node));
+struct Node *createNode(int data){
+    struct Node *newNode = (struct Node *)malloc(sizeof(struct Node));
     newNode->data = data;
     newNode->next = NULL;
     newNode->prev = NULL;
     return newNode;
 }
 
-// Function to insert a node at the end of the list
-void insertAtEnd(struct Node** head, int data) {
-    struct Node* newNode = createNode(data);
-    if (*head == NULL) {
-        *head = newNode;
-    } else {
-        struct Node* current = *head;
-        while (current->next != NULL) {
-            current = current->next;
-        }
-        current->next = newNode;
-        newNode->prev = current;
+struct Node *insertAtStart(struct Node *head, int data){
+    struct Node *newNode = createNode(data);
+    
+    if (head == NULL){
+        head = newNode;
+        return head;
     }
+    
+    struct Node * temp = head;
+    head=newNode;
+    newNode->next=temp;
+    temp->prev=newNode;
+
+    return head;
 }
 
-// Function to reverse the doubly linked list
-void reverseDoublyLinkedList(struct Node** head) {
-    struct Node* temp = NULL;
-    struct Node* current = *head;
+struct Node *reverseDoublyLinkedList(struct Node *head)
+{
+    struct Node *temp = NULL;
+    struct Node *current = head;
 
-    while (current != NULL) {
-        // Swap the next and prev pointers of the current node
+    while (current != NULL){
         temp = current->prev;
         current->prev = current->next;
         current->next = temp;
-        current = current->prev; // Move to the next node
+        current = current->prev;
     }
 
-    // Update the head pointer
-    if (temp != NULL) {
-        *head = temp->prev;
+    if (temp != NULL){
+        head = temp->prev;
     }
+
+    return head;
 }
 
-// Function to print the doubly linked list
-void printList(struct Node* head) {
-    while (head != NULL) {
+void printList(struct Node *head){
+    while (head != NULL){
         printf("%d ", head->data);
         head = head->next;
     }
     printf("\n");
 }
 
-int main() {
-    struct Node* head = NULL;
+int main(){
+    struct Node *head = NULL; int data;
 
-    // Insert elements into the doubly linked list
-    insertAtEnd(&head, 1);
-    insertAtEnd(&head, 2);
-    insertAtEnd(&head, 3);
-    insertAtEnd(&head, 4);
-    insertAtEnd(&head, 5);
+    for (int i = 0; i < 5; i++){
+        printf("Enter data : ");
+        scanf("%d", &data);
+        head = insertAtStart(head,data);
+    }
 
     printf("Original Doubly Linked List: ");
     printList(head);
 
-    // Reverse the doubly linked list
-    reverseDoublyLinkedList(&head);
+    head = reverseDoublyLinkedList(head);
 
     printf("Reversed Doubly Linked List: ");
     printList(head);
