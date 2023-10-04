@@ -1,125 +1,75 @@
-#include<stdio.h>
-#include<stdlib.h>
-struct node
+#include <stdio.h>
+#include <stdlib.h>
+
+struct Node
 {
-    int data;
-    struct node*next;
+  int data;
+  struct Node *next;
 };
-void linked_display(struct node *current){
-    printf("\n      :-----Single linked list:-----\n");
-    while (current!=NULL)
+
+void insertStart (struct Node **head, int data)
+{
+  struct Node *newNode = (struct Node *) malloc (sizeof (struct Node));
+  newNode->data = data;
+
+  // if its the first node being entered
+  if (*head == NULL)
     {
-        printf("%d ->",current->data);
-        current=current->next;
+      *head = newNode;
+      (*head)->next = *head;
+      return;
     }
-    printf("NULL");
-}
-/*------------------------------------------------INSERTION------------------------------------------------*/
-struct node* insertatfirst(struct node *head){
-    struct node new=(struct node)malloc(sizeof(struct node));
-    printf("\nEnter data for new node: ");
-    scanf("%d",&new->data);
-    new->next=head;
-    return new;
-}
 
-struct node*insertatlast(struct node *head){
-    struct node*temp=head;
-    struct node*lastnew=(struct node*)malloc(sizeof(struct node));
-    while(temp->next!=NULL){
-        temp=temp->next;
-    }
-    printf("\nEnter data for last new node: ");
-    scanf("%d",&lastnew->data);
-    temp->next=lastnew;
-    lastnew->next=NULL;
-    return head;
-}
-struct node*insertatposition(struct node *head){
-    struct node* counttemp=head;
-    struct node*temp=head;
-    int count=1;//counting node
-    int pos;
-    while (counttemp->next!=NULL)
+  // if LL already as >=1 node
+  struct Node *curr = *head;
+
+  // traverse till last node in LL
+  while (curr->next != *head)
     {
-        counttemp=counttemp->next;
-        count++;
+      curr = curr->next;
     }
-    printf("\nTotal Node in the Linked list is %d\n",count);
-    printf("Enter the position where you want to insert a node: ");
-    scanf("%d",&pos);
-    if (pos<1 || pos>count)
+  // assign LL's last node's next as this new node
+  curr->next = newNode;
+
+  // assign newNode's next as current head
+  newNode->next = *head;
+
+  // change head to this new node
+  *head = newNode;
+}
+
+void display (struct Node *head)
+{
+  // if there are no node in LL
+  if (head == NULL)
+    return;
+
+  struct Node *temp = head;
+
+  //need to take care of circular structure of LL
+  do
     {
-        printf("!!Invalid Position!!");
-    }
-    else{
-        struct node * newpos=(struct node*)malloc(sizeof(struct node));
-        printf("Enter the data for %d position :",pos);
-        scanf("%d",&newpos->data);
-        for (int i = 0; i < pos-2; i++)
-        {
-            temp=temp->next;
-        }
-        newpos->next=temp->next;
-        temp->next=newpos;  
-        return head;
-    }
-}
-/*------------------------------------------------DELETION------------------------------------------------*/
-struct node * deletionatfirst(struct node* head){
-    struct node*temp=head;
+      printf ("%d ", temp->data);
+      temp = temp->next;
 
-    head=head->next;
-    printf("\n%d is De-linked from beginning  ",temp->data);
-    temp->next=NULL;
-    free(temp);
-    return head;
-
+    }
+  while (temp != head);
+  printf ("\n");
 }
 
-struct node *deletionatlast(struct node *head){
-    struct node*temp=head;
-    while (temp->next!=NULL)
-    {
-        temp=temp->next;
-    }
-    struct node*temp2=temp->next;
-    temp->next=NULL;
-    free(temp2);
-    return head;
-    
-}
+int main ()
+{
 
-int main(){
-    struct node *head;
-    struct node *second;
-    struct node *third;
+  struct Node *head = NULL;
 
-    head=(struct node *)malloc(sizeof(struct node));
-    second=(struct node *)malloc(sizeof(struct node));    
-    third=(struct node *)malloc(sizeof(struct node));
+  printf ("Linked List: ");
+  insertStart (&head, 1);
+  insertStart (&head, 2);
+  insertStart (&head, 3);
+  insertStart (&head, 4);
+  insertStart (&head, 5);
+  insertStart (&head, 50);
+  display (head);
 
-
-    //link first and second node
-    head->data=10;
-    head->next=second;
-    //link second and third node
-    second->data=20;
-    second->next=third;
-    //terminate the list at third node
-    third->data=30;
-    third->next=NULL;
-    linked_display(head);
-    head=insertatfirst(head);
-    linked_display(head);
-    head=insertatlast(head);
-    linked_display(head);
-    head=insertatposition(head);
-    linked_display(head);
-    head=deletionatfirst(head);
-    linked_display(head);
-    head=deletionatlast(head);
-    linked_display(head);
-
-    return 0;
+  return 0;
 }
