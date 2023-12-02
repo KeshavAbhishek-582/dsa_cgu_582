@@ -4,17 +4,22 @@
 int cq[size];
 int rear = -1, front = -1;
 
-int enqueue(int data){
-    if (front == (rear + 1) % size){
+int enqueue(int data)
+{
+    if (front == (rear + 1) % size)
+    {
         printf("\nCQueue is Full.\n");
         return 1;
     }
-    else{
-        if (front == -1){
+    else
+    {
+        if (front == -1)
+        {
             front = 0;
             rear = 0;
         }
-        else{
+        else
+        {
             rear = (rear + 1) % size;
         }
     }
@@ -22,45 +27,55 @@ int enqueue(int data){
     printf("\nValue pushed : %d", data);
 }
 
-int dequeue(){
-    if(front==-1){
+int dequeue()
+{
+    if (front == -1)
+    {
         rear = front = -1;
         printf("\n\nCQueue is Empty.");
         return -1;
     }
 
     printf("\nValue deleted : %d", cq[front]);
-    
-    if(front==rear){
+
+    if (front == rear)
+    {
         front = rear = -1;
     }
-    else{
-        front = (front+1) % size;
+    else
+    {
+        front = (front + 1) % size;
     }
 }
 
-int traverse(){
-    if(front==-1 || front > rear){
+int traverse()
+{
+    if (front == -1 || front > rear)
+    {
         printf("\nCQueue is Empty");
         return 0;
     }
     int current = front;
     printf("\n\nValues : ");
-    do{
+    do
+    {
         printf("%d ", cq[current]);
         // current = (current + 1)%size;
 
         // Circular Increment of Circular Queue Operation
-        if(current==size-1){
-            current=0;
+        if (current == size - 1)
+        {
+            current = 0;
         }
-        else{
+        else
+        {
             current++;
         }
-    }while (current != (rear + 1) % size);
+    } while (current != (rear + 1) % size);
 }
 
-int main(){
+int main()
+{
     enqueue(10);
     enqueue(20);
     enqueue(30);

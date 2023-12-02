@@ -1,0 +1,16 @@
+hash = [-1,-1,-1,-1,-1,-1,-1,-1,-1,-1]
+data = [72, 27, 36, 24, 63, 81, 92, 101]
+
+m = 10
+r = 0
+for x in data:
+    for i in range(10):
+        r = ((x%m) + i*i)%m
+        if(hash[r]==-1):
+            hash[i]=x
+
+for d in hash:
+    if(d!=-1):
+        print(d)
+    else:
+        print()
